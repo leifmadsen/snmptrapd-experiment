@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    prometheus: stf-default
+    role: alert-rules
+  name: prometheus-alarm-rules
+  namespace: service-telemetry
+spec:
+  groups:
+  - name: ./openstack.rules
+    rules:
+    - alert: TEST ALERT FROM PROMETHEUS PLEASE ACKNOWLEDGE
+      annotations:
+        action: TESTING PLEASE ACKNOWLEDGE, NO FURTHER ACTION REQUIRED ONLY A TEST
+        description: TEST ALERT FROM {{ $labels.instance }}
+      expr: sg_total_collectd_msg_received_count > 1
+      for: 10s
+      labels:
+        cluster: TEST
+        severity: warning
+        oid: 1.5.2
